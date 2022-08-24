@@ -30,6 +30,11 @@ jspm_packages/
 *.tgz
 .yarn-integrity
 .cache
+.DS_Store
+**/*.js
+**/*.d.ts
+package-lock.json
+yarn.lock
 !/.projenrc.js
 /test-reports/
 junit.xml
@@ -41,6 +46,8 @@ junit.xml
 !/.mergify.yml
 !/.github/workflows/upgrade-main.yml
 !/.github/pull_request_template.md
+!/.prettierignore
+!/.prettierrc.json
 !/test/
 !/tsconfig.dev.json
 !/src/
