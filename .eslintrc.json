@@ -7,7 +7,8 @@
   "plugins": [
     "@typescript-eslint",
     "import",
-    "prettier"
+    "prettier",
+    "jsdoc"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -18,7 +19,8 @@
   "extends": [
     "plugin:import/typescript",
     "prettier",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:jsdoc/recommended"
   ],
   "settings": {
     "import/parsers": {
@@ -129,6 +131,21 @@
           "constructor",
           "method"
         ]
+      }
+    ],
+    "jsdoc/require-param-type": "off",
+    "jsdoc/require-description": "error",
+    "jsdoc/require-returns-type": "off",
+    "jsdoc/require-jsdoc": [
+      "error",
+      {
+        "require": {
+          "ArrowFunctionExpression": true,
+          "ClassDeclaration": false,
+          "ClassExpression": false,
+          "FunctionDeclaration": true,
+          "MethodDefinition": true
+        }
       }
     ]
   },

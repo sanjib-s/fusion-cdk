@@ -1,27 +1,31 @@
 import { KmsKey } from "@cdktf/provider-aws/lib/kms";
-import {
-  S3Bucket,
-  S3BucketConfig,
-  S3BucketPublicAccessBlock,
-  S3BucketServerSideEncryptionConfiguration,
-} from "@cdktf/provider-aws/lib/s3";
+import * as s3 from "@cdktf/provider-aws/lib/s3";
 import { TerraformOutput } from "cdktf";
 import { Construct } from "constructs";
-import * as security from "../security";
+import { security, FusionConstruct } from "../@types";
 
-export interface SlalomS3BucketProps extends S3BucketConfig {
+export interface S3BucketProps extends s3.S3BucketConfig {
   readonly encryptionKey: KmsKey | security.NotSecure;
 }
 
-export class SlalomS3Bucket extends Construct {
-  constructor(scope: Construct, id: string, props: SlalomS3BucketProps) {
+export class S3Bucket extends Construct implements FusionConstruct {
+  readonly construct: s3.S3Bucket;
+
+  /**
+   * Create a new aws_s3_bucket Resource
+   *
+   * @param scope — The scope in which to define this construct.
+   * @param id — The scoped construct ID. Must be unique amongst siblings in the same scope.
+   * @param options — S3BucketProps
+   */
+  constructor(scope: Construct, id: string, options: S3BucketProps) {
     super(scope, id);
 
     // Add encryption
-    const encryption = this.NewEncryption(props.encryptionKey);
+    const encryption = this.NewEncryption(options.encryptionKey);
 
-    const bucket = new S3Bucket(this, "bucket", {
-      ...props,
+    const bucket = new s3.S3Bucket(this, "bucket", {
+      ...options,
       versioning: {
         enabled: true,
       },
@@ -31,10 +35,19 @@ export class SlalomS3Bucket extends Construct {
     // Add public access blocks
     this.NewPublicAccessBlock(bucket);
     this.NewOutputs(bucket);
+
+    this.construct = bucket;
   }
 
-  private NewPublicAccessBlock(bucket: S3Bucket) {
-    return new S3BucketPublicAccessBlock(this, "public-access-block", {
+  /**
+   * Generate a new public access block for the
+   * S3 bucket.
+   *
+   * @param bucket - The bucket to apply the block
+   * @returns S3BucketPublicAccessBlock
+   */
+  private NewPublicAccessBlock(bucket: s3.S3Bucket) {
+    return new s3.S3BucketPublicAccessBlock(this, "public-access-block", {
       bucket: bucket.bucket,
       blockPublicAcls: true,
       blockPublicPolicy: true,
@@ -43,8 +56,15 @@ export class SlalomS3Bucket extends Construct {
     });
   }
 
+  /**
+   * Enable bucket encryption using either a kms key
+   * or default AES256 encryption.
+   *
+   * @param encryptionKey - Kms Key or opt out with AES256
+   * @returns serverSideEncryptionConfiguration
+   */
   private NewEncryption(encryptionKey?: KmsKey | security.NotSecure) {
-    let serverSideEncryptionConfiguration: S3BucketServerSideEncryptionConfiguration =
+    let serverSideEncryptionConfiguration: s3.S3BucketServerSideEncryptionConfiguration =
       {
         rule: {
           applyServerSideEncryptionByDefault: {
@@ -67,7 +87,12 @@ export class SlalomS3Bucket extends Construct {
     return serverSideEncryptionConfiguration;
   }
 
-  private NewOutputs(bucket: S3Bucket) {
+  /**
+   * Generate Terraform outputs
+   *
+   * @param bucket - S3Bucket
+   */
+  private NewOutputs(bucket: s3.S3Bucket) {
     new TerraformOutput(this, "BucketName", {
       value: bucket.bucket,
     });

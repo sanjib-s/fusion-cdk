@@ -47,12 +47,20 @@
       "type": "build"
     },
     {
+      "name": "eslint-plugin-jsdoc",
+      "type": "build"
+    },
+    {
       "name": "eslint-plugin-prettier",
       "type": "build"
     },
     {
       "name": "eslint",
       "version": "^8",
+      "type": "build"
+    },
+    {
+      "name": "husky",
       "type": "build"
     },
     {
@@ -83,6 +91,10 @@
     },
     {
       "name": "json-schema",
+      "type": "build"
+    },
+    {
+      "name": "lint-staged",
       "type": "build"
     },
     {

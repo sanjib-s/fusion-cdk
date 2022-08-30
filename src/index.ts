@@ -1,1 +1,1 @@
-export * from "./aws";
+export * as fusionaws from "./aws";

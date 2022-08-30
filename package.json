@@ -1,9 +1,9 @@
 {
-  "name": "blocks",
+  "name": "fusion-cdk",
   "description": "Secure by default Terraform CDK constructs.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SlalomBuild/blocks.git"
+    "url": "https://github.com/SlalomBuild/fusion-cdk.git"
   },
   "scripts": {
     "build": "npx projen build",
@@ -28,7 +28,8 @@
     "unbump": "npx projen unbump",
     "upgrade": "npx projen upgrade",
     "watch": "npx projen watch",
-    "projen": "npx projen"
+    "projen": "npx projen",
+    "pre-commit": "lint-staged"
   },
   "author": {
     "name": "Slalom Build",
@@ -47,7 +48,9 @@
     "eslint-import-resolver-node": "^0.3.6",
     "eslint-import-resolver-typescript": "^3.4.2",
     "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.0",
     "jest": "^27",
     "jest-junit": "^13",
     "jsii": "^1.65.0",
@@ -55,6 +58,7 @@
     "jsii-docgen": "^7.0.71",
     "jsii-pacmak": "^1.65.0",
     "json-schema": "^0.4.0",
+    "lint-staged": "^13.0.3",
     "npm-check-updates": "^15",
     "prettier": "^2.7.1",
     "projen": "^0.61.21",
@@ -77,6 +81,9 @@
   ],
   "main": "lib/index.js",
   "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "version": "0.0.0",
   "jest": {
     "testMatch": [

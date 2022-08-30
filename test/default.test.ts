@@ -1,7 +1,7 @@
 import { AwsProvider } from "@cdktf/provider-aws";
 import { TerraformStack, Testing } from "cdktf";
 import "cdktf/lib/testing/adapters/jest";
-import { SlalomSecurityGroup, SlalomSecurityGroupProps } from "../src";
+import { fusionaws } from "../src";
 
 Testing.setupJest();
 
@@ -12,11 +12,11 @@ describe("AWS", () => {
     new AwsProvider(stack, "provider");
 
     it("should produce valid terraform", () => {
-      const properties: SlalomSecurityGroupProps = {
+      const properties: fusionaws.SecurityGroupProps = {
         name: "my-security-group",
       };
 
-      new SlalomSecurityGroup(stack, "test-security-group", properties);
+      new fusionaws.SecurityGroup(stack, "test-security-group", properties);
       expect(Testing.fullSynth(stack)).toBeValidTerraform();
     });
   });
