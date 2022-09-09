@@ -37,6 +37,8 @@ const project = new cdktf.ConstructLibraryCdktf({
     dirs: ["src"],
     prettier: true,
   },
+  release: false,
+  releaseToNpm: false,
   projenrcTs: true,
   prettier: true,
   gitignore: [
