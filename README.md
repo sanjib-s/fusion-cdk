@@ -2,6 +2,8 @@
 
 Secure by default cloud infrastructure configuration using the Terraform CDK.
 
+[Documentation](./API.md)
+
 ## Install 📥
 
 Install the library
@@ -9,13 +11,7 @@ Install the library
 ### Typescript/Javascript
 
 ```shell
-npm install @slalom-build/fusion-cdk
-```
-
-### Golang
-
-```shell
-go get github.com/SlalomBuild/fusion-cdk-go
+npm install @slalombuild/fusion-cdk
 ```
 
 ## Usage ⚡️
@@ -24,8 +20,8 @@ Getting started with the Fusion CDK library is almost exactly like using the ter
 
 ```typescript
 import { App, TerraformStack } from "cdktf";
-import * as fusion from "@slalom-build/fusion-cdk";
-import { security } from "@slalom-build/fusion-cdk/@types";
+import * as fusion from "@slalombuild/fusion-cdk";
+import { security } from "@slalombuild/fusion-cdk/@types";
 
 const app = new App();
 
