@@ -1,9 +1,10 @@
 import * as iam from "@cdktf/provider-aws/lib/iam";
 import { Construct } from "constructs";
+import { FusionConstruct } from "../@types";
 
 export interface IamRoleProps extends iam.IamRoleConfig {}
 
-export class IamRole extends Construct {
+export class IamRole extends Construct implements FusionConstruct {
   readonly construct: iam.IamRole;
 
   /**

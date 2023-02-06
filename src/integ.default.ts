@@ -18,4 +18,9 @@ new fusionaws.S3Bucket(stack, "bucket", {
   encryptionKey: security.NOT_SECURE,
 });
 
+new fusionaws.IamPolicy(stack, "iam-policy", {
+  path: "*",
+  policy: "",
+});
+
 app.synth();

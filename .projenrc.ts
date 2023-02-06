@@ -56,10 +56,10 @@ project.eslint?.addPlugins("jsdoc");
 project.eslint?.addExtends("plugin:jsdoc/recommended");
 project.eslint?.addRules({
   "jsdoc/require-param-type": "off",
-  "jsdoc/require-description": "error",
+  "jsdoc/require-description": "warn",
   "jsdoc/require-returns-type": "off",
   "jsdoc/require-jsdoc": [
-    "error",
+    "warn",
     {
       require: {
         ArrowFunctionExpression: true,

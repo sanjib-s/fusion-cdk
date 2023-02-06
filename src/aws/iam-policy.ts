@@ -19,7 +19,20 @@ export class IamPolicy extends Construct implements FusionConstruct {
    */
   constructor(scope: Construct, id: string, options: IamPolicyProps) {
     super(scope, id);
-
     this.construct = new iam.IamPolicy(this, "iam-policy", options);
+    this.node.addValidation({
+      /**
+       *
+       */
+      validate: () => {
+        let errors = [];
+        if (this.construct.path === "*") {
+          errors.push(
+            `IAM Policy path "${this.construct.path}" for ${this.construct.friendlyUniqueId} may be overly permissive.`
+          );
+        }
+        return errors;
+      },
+    });
   }
 }
